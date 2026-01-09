@@ -1,3 +1,4 @@
+package src;
 //Taken from https://gist.github.com/alksily/7a85a1898e65c936f861ee93516e397d
 
 import java.util.Random;

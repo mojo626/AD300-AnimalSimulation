@@ -1,3 +1,4 @@
+package src;
 
 public class Rabbit extends Animal {
 

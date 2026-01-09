@@ -1,3 +1,4 @@
+package src;
 public class Animal {
     public String name;
     public float age;
