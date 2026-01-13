@@ -45,11 +45,29 @@ public class Rabbit extends Animal {
     }
 
     public void update() {
+        int[] tilePos = {5, 5};
+        int[] currentPos = {posX, posY};
+        int[] moveDir = nextStepToTile(tilePos, currentPos);
+
+        move(moveDir);
+
+        //moveRandom();
+    }
+
+    //change is in tile index not pixel position
+    public void move(int[] change) {
+        posX += change[0] * Constants.TILE_SIZE;
+        posY += change[1] * Constants.TILE_SIZE;
+    }
+
+    public void moveRandom() {
         int dX = (int)Math.round(random.nextDouble() * 3.0 - 2.0);
         int dY = (int)Math.round(random.nextDouble() * 3.0 - 2.0);
 
-        posX += dX * Constants.TILE_SIZE;
-        posY += dY * Constants.TILE_SIZE;
+        //if (WorldState.Terrain[posX])
+
+        int[] change = {dX, dY};
+        move(change);
     }
 
     

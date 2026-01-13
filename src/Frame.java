@@ -63,7 +63,7 @@ public class Frame extends JPanel {
         frame.setTitle("Simulation");
 
         // Create a Timer that fires every 20 milliseconds (approx 50 FPS)
-        Timer timer = new Timer(1000, new ActionListener() {
+        Timer timer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 WorldState.run(); // Update the model/state
