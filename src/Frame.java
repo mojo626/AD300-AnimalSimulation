@@ -25,6 +25,8 @@ public class Frame extends JPanel {
 
                 if (terrain == 1) {
                     g.setColor(new Color(0.0f, 1.0f, 0.0f));
+                } else if (terrain == 2) {
+                    g.setColor(new Color(1.0f, 1.0f, 0.0f));
                 } else {
                     g.setColor(new Color(0.0f, 0.0f, 1.0f));
                 }
@@ -34,7 +36,6 @@ public class Frame extends JPanel {
         }
 
         g.setColor(new Color(1.0f, 0.0f, 0.0f));
-        g.fillRect(WorldState.Rabbits.get(0).closestWater[0] * Constants.TILE_SIZE, WorldState.Rabbits.get(0).closestWater[1] * Constants.TILE_SIZE, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
         drawAnimals(g);
 
@@ -43,7 +44,10 @@ public class Frame extends JPanel {
    private void drawAnimals(Graphics g) {
     //Rabbits
     for (Rabbit rabbit : WorldState.Rabbits) {
-        rabbit.draw(g);
+        if (!rabbit.dead) {
+            rabbit.draw(g);
+        }
+        
     }
    }
 
@@ -65,8 +69,8 @@ public class Frame extends JPanel {
         //frame.setResizable(false);
         frame.setTitle("Simulation");
 
-        // Create a Timer that fires every 20 milliseconds (approx 50 FPS)
-        Timer timer = new Timer(1000, new ActionListener() {
+        
+        Timer timer = new Timer(Constants.LOOP_TIME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 WorldState.run(); // Update the model/state

@@ -1,5 +1,6 @@
 package src;
 
+import java.util.Random;
 import java.util.Vector;
 
 public class WorldState {
@@ -22,11 +23,30 @@ public class WorldState {
                 }
             }
         }
+
+
+        for (int i = 0; i < Constants.PLANT_NUMBER; i++) {
+            Random random = new Random();
+            while (true) {
+                int startingX = (int)Math.round(random.nextDouble() * (Constants.WINDOW_WIDTH / Constants.TILE_SIZE - 1));
+                int startingY = (int)Math.round(random.nextDouble() * (Constants.WINDOW_HEIGHT / Constants.TILE_SIZE - 1));
+
+                if (Terrain[startingX][startingY] == 1) {
+                    Terrain[startingX][startingY] = 2;
+                    break;
+                }
+
+            }
+        }
     }
 
     public static void run() {
         for (Rabbit rabbit : Rabbits) {
             rabbit.update();
         }
+    }
+
+    public static boolean isOutOfBounds(int posX, int posY) {
+        return posX < 0 || posY < 0 || posX  >= Constants.WINDOW_WIDTH/Constants.TILE_SIZE || posY >= Constants.WINDOW_HEIGHT/Constants.TILE_SIZE;
     }
 }

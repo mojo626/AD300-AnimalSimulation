@@ -15,7 +15,7 @@ public class Rabbit extends Animal {
     public int posX;
     public int posY;
 
-    public int[] closestWater = {-1, -1};
+    public boolean dead = false;
 
     private Random random;
 
@@ -47,25 +47,64 @@ public class Rabbit extends Animal {
     }
 
     public void update() {
-        int[] water = closestWater();
-        closestWater = water;
+        updateNeeds();
 
-        if (water[0] == -1) {
-            moveRandom();
-            return;
+        if (thirst >= Constants.THIRST_THRESHOLD) {
+            int[] water = closestTile(0);
+
+            if (water[0] != -1) {
+                int[] currentPos = {posX, posY};
+                int[] moveDir = nextStepToTile(water, currentPos);
+
+
+                move(moveDir);
+
+                return;
+            }
+        } else if (hunger >= Constants.HUNGER_THRESHOLD) {
+            int[] food = closestTile(2);
+
+            if (food[0] != -1) {
+                int[] currentPos = {posX, posY};
+                int[] moveDir = nextStepToTile(food, currentPos);
+
+                move(moveDir);
+
+                return;
+            }
         }
+        
 
-        int[] currentPos = {posX, posY};
-        int[] moveDir = nextStepToTile(water, currentPos);
+        moveRandom();
 
-        System.out.println("" + water[0] + ", " + water[1]);
-
-        move(moveDir);
-
-        //moveRandom();
     }
 
-    public int[] closestWater() {
+    public void updateNeeds() {
+        for (int x = -1; x <= 1; x++) {
+            for (int y = -1; y <= 1; y++) {
+                if (WorldState.isOutOfBounds(posX + x, posY + y)) {
+                    continue;
+                }
+
+                if (WorldState.Terrain[posX + x][posY + y] == 0) {
+                    thirst = 0.0f;
+                }
+                if (WorldState.Terrain[posX + x][posY + y] == 2) {
+                    hunger = 0.0f;
+                }
+            }
+        }
+
+
+        thirst += Constants.THIRST_CHANGE;
+        hunger += Constants.HUNGER_CHANGE;
+
+        if (thirst > 1.0f || hunger > 1.0f) {
+            dead = true;
+        }
+    }
+
+    public int[] closestTile(int type) {
 
 
         float closestDis = 100000000.0f;
@@ -79,12 +118,12 @@ public class Rabbit extends Animal {
                 }
 
                 //the tile is outside of the map
-                if (posX + x < 0 || posY + y < 0 || posX + x >= Constants.WINDOW_WIDTH/Constants.TILE_SIZE || posY + y >= Constants.WINDOW_HEIGHT/Constants.TILE_SIZE) {
+                if (WorldState.isOutOfBounds(posX + x, posY + y)) {
                     continue;
                 }
 
                 //the tile is water
-                if (WorldState.Terrain[posX + x][posY + y] == 0) {
+                if (WorldState.Terrain[posX + x][posY + y] == type) {
                     float dis = (float)Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 
                     if (dis < closestDis) {
