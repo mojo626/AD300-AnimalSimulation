@@ -14,8 +14,8 @@ public class Constants {
     public static final int PLANT_NUMBER = 10;
 
     //Simulation constants
-    public static final double THIRST_CHANGE = 0.05;
+    public static final double THIRST_CHANGE = 0.01;
     public static final double THIRST_THRESHOLD = 0.3;
-    public static final double HUNGER_CHANGE = 0.05;
+    public static final double HUNGER_CHANGE = 0.01;
     public static final double HUNGER_THRESHOLD = 0.3;
 }

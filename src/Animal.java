@@ -1,25 +1,28 @@
 package src;
-public class Animal {
+public abstract class Animal {
     public String name;
-    public float age;
+    public int age;
 
-    public Animal(String name, float age) {
-
+    public Animal(String name, int age) {
+        this.name = name;
+        this.age = age;
     }
 
     //for assignment, not used in simulation
     public void eat() {
-        System.out.println("Animal is eating");
+        System.out.println(name + " is eating");
     }
 
     //for assignment, not used in simulation
     public void sleep() {
-        System.out.println("Animal is sleeping");
+        System.out.println(name + " is sleeping");
     }
 
     //for assignment, not used in simulation
-    public void makeSound() {
-        System.out.println("Animal is making a sound");
+    abstract void makeSound();
+
+    public void displayInfo() {
+        System.out.println("Name: " + name + ", Age: " + age);
     }
 
     //tilePos and currentPos should be tile index, not pixel position on screen

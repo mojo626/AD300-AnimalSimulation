@@ -10,7 +10,7 @@ public class Rabbit extends Animal {
     private float thirst = 0.0f;
 
     //Traits
-    private int sensingRadius = 10;
+    private int sensingRadius = 100;
 
     public int posX;
     public int posY;
@@ -19,7 +19,7 @@ public class Rabbit extends Animal {
 
     private Random random;
 
-    public Rabbit(String name, float age) {
+    public Rabbit(String name, int age) {
         super(name, age);
         
         random = new Random();
@@ -38,7 +38,18 @@ public class Rabbit extends Animal {
 
     @Override
     public void makeSound() {
-        System.out.println("Rabbit is making a sound");
+        System.out.println(name + " is making a rabbit sound"); //I don't know what sound a rabbit makes
+    }
+
+    @Override
+    public void displayInfo() {
+        super.displayInfo();
+
+        System.out.println("The rabbit hops");
+    }
+
+    public void hop() {
+        System.out.println(name + " hops hops hops");
     }
 
     public void draw(Graphics g) {
