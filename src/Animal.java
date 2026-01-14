@@ -39,11 +39,6 @@ public abstract class Animal {
             for (int y = -1; y <= 1; y++) {
                 float distance = (float)Math.sqrt(Math.pow(currentPos[0] + x - tilePos[0], 2) + Math.pow(currentPos[1] + y - tilePos[1], 2));
 
-                // //means that this is a diagonal path
-                // if (!(x == 0 || y == 0)) {
-                //     distance *= 1.44; //diagonal paths are longer so scale the cost accordingly
-                // }
-
                 if (distance < bestCost) {
                     bestCost = distance;
                     bestStep[0] = x;
